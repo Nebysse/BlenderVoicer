@@ -1,0 +1,74 @@
+# Blender 文件
+*.blend
+*.blend1
+*.blend2
+*.blend3
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+ENV/
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# 操作系统
+.DS_Store
+Thumbs.db
+
+# 文档文件夹
+docs/
+doc/
+documentation/
+*.md
+README*
+
+# 临时文件
+*.tmp
+*.bak
+*.log
+
+# 其他二进制文件
+*.dll
+*.exe
+*.bin
+*.obj
+*.fbx
+*.dae
+*.3ds
+*.max
+*.c4d
+*.ma
+*.mb
+*.x3d
+*.ply
+*.stl
+*.off
+*.obj
+*.gltf
+*.glb
+
