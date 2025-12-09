@@ -1,0 +1,2 @@
+# BlenderVoicer
+旨在让blender有各种音效增强沉浸感和一些情况提醒用户完成渲染烘焙等
