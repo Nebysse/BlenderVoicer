@@ -16,12 +16,12 @@ from . import modal_listener
 
 def register():
     prefs.register()
-    sfx_manager.register()
+    sfx_manager.SFXManager.register()
     handlers.register()
     modal_listener.register()
     
     prefs_instance = bpy.context.preferences.addons[__name__].preferences
-    sfx_manager.load_all_from_preferences(prefs_instance)
+    sfx_manager.SFXManager.load_all_from_preferences(prefs_instance)
     handlers.setup_handlers()
     modal_listener.start_modal()
 
@@ -30,7 +30,7 @@ def unregister():
     modal_listener.stop_modal()
     handlers.unregister()
     modal_listener.unregister()
-    sfx_manager.unregister()
+    sfx_manager.SFXManager.unregister()
     prefs.unregister()
 
 if __name__ == "__main__":
