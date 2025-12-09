@@ -21,6 +21,9 @@ class SFXManager:
     BAKE_DONE = "BAKE_DONE"
     NODE_ADD = "NODE_ADD"
     SIDEBAR_OPEN = "SIDEBAR_OPEN"
+    SIDEBAR_CLOSE = "SIDEBAR_CLOSE"
+    TOOLBAR_OPEN = "TOOLBAR_OPEN"
+    TOOLBAR_CLOSE = "TOOLBAR_CLOSE"
     
     _cache = {}
     _device = None
@@ -45,6 +48,9 @@ class SFXManager:
             cls.BAKE_DONE: os.path.join(addon_path, "assets", "default_sfx", "bake_done.wav"),
             cls.NODE_ADD: os.path.join(addon_path, "assets", "default_sfx", "node_add.wav"),
             cls.SIDEBAR_OPEN: os.path.join(addon_path, "assets", "default_sfx", "sidebar.wav"),
+            cls.SIDEBAR_CLOSE: os.path.join(addon_path, "assets", "default_sfx", "sidebar.wav"),
+            cls.TOOLBAR_OPEN: os.path.join(addon_path, "assets", "default_sfx", "sidebar.wav"),
+            cls.TOOLBAR_CLOSE: os.path.join(addon_path, "assets", "default_sfx", "sidebar.wav"),
         }
         return defaults.get(event_type, "")
     
@@ -55,6 +61,9 @@ class SFXManager:
             cls.BAKE_DONE: prefs_instance.sfx_bake_path,
             cls.NODE_ADD: prefs_instance.sfx_node_path,
             cls.SIDEBAR_OPEN: prefs_instance.sfx_sidebar_path,
+            cls.SIDEBAR_CLOSE: prefs_instance.sfx_sidebar_path,
+            cls.TOOLBAR_OPEN: prefs_instance.sfx_sidebar_path,
+            cls.TOOLBAR_CLOSE: prefs_instance.sfx_sidebar_path,
         }
         return path_map.get(event_type, "")
     

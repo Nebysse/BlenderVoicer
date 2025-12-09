@@ -70,6 +70,12 @@ class BLENDVOICE_OT_bake_animation(Operator):
         self.frame_start = context.scene.frame_start
         self.frame_end = context.scene.frame_end
         self.only_selected = len(context.selected_objects) > 0
+        
+        if context.mode == 'POSE':
+            self.bake_types = {'POSE'}
+        else:
+            self.bake_types = {'OBJECT'}
+        
         return context.window_manager.invoke_props_dialog(self, width=400)
     
     def draw(self, context):
@@ -101,7 +107,11 @@ class BLENDVOICE_OT_bake_animation(Operator):
         else:
             return result
 
-def menu_func(self, context):
+def menu_func_object(self, context):
+    self.layout.separator()
+    self.layout.operator(BLENDVOICE_OT_bake_animation.bl_idname, text="Bake Animation (SFX)")
+
+def menu_func_pose(self, context):
     self.layout.separator()
     self.layout.operator(BLENDVOICE_OT_bake_animation.bl_idname, text="Bake Animation (SFX)")
 
@@ -134,11 +144,16 @@ def remove_handlers():
 
 def register():
     bpy.utils.register_class(BLENDVOICE_OT_bake_animation)
-    bpy.types.VIEW3D_MT_object.append(menu_func)
+    bpy.types.VIEW3D_MT_object.append(menu_func_object)
+    bpy.types.VIEW3D_MT_pose.append(menu_func_pose)
 
 def unregister():
     remove_handlers()
-    bpy.types.VIEW3D_MT_object.remove(menu_func)
+    bpy.types.VIEW3D_MT_object.remove(menu_func_object)
+    try:
+        bpy.types.VIEW3D_MT_pose.remove(menu_func_pose)
+    except:
+        pass
     try:
         bpy.utils.unregister_class(BLENDVOICE_OT_bake_animation)
     except:
