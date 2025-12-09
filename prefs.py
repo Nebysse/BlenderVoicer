@@ -6,12 +6,12 @@ from . import sfx_manager
 
 class BLENDVOICE_OT_select_sfx_file(Operator):
     bl_idname = "blendvoice.select_sfx_file"
-    bl_label = "选择 WAV 文件"
-    bl_description = "选择音效文件"
+    bl_label = "选择音效文件"
+    bl_description = "选择音效文件 (WAV/OGG)"
     
     filepath: StringProperty(
         name="文件路径",
-        description="选择 WAV 音效文件",
+        description="选择音效文件 (支持 WAV 或 OGG 格式)",
         maxlen=1024,
         subtype='FILE_PATH'
     )
@@ -19,7 +19,7 @@ class BLENDVOICE_OT_select_sfx_file(Operator):
     event_type: StringProperty()
     
     filter_glob: StringProperty(
-        default='*.wav',
+        default='*.wav;*.ogg',
         options={'HIDDEN'}
     )
     
@@ -27,8 +27,9 @@ class BLENDVOICE_OT_select_sfx_file(Operator):
         if not self.filepath:
             return {'CANCELLED'}
         
-        if not self.filepath.lower().endswith('.wav'):
-            self.report({'ERROR'}, "仅支持 WAV 格式")
+        filepath_lower = self.filepath.lower()
+        if not (filepath_lower.endswith('.wav') or filepath_lower.endswith('.ogg')):
+            self.report({'ERROR'}, "仅支持 WAV 或 OGG 格式")
             return {'CANCELLED'}
         
         prefs = context.preferences.addons[__name__.split('.')[0]].preferences

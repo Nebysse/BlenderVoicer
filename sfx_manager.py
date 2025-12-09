@@ -11,6 +11,11 @@ def _get_addon_name():
             return name.split('.')[0] if '.' in name else name
     return os.path.basename(addon_path)
 
+_SUPPORTED_FORMATS = ('.wav', '.ogg')
+
+def _is_supported_format(filepath):
+    return filepath.lower().endswith(_SUPPORTED_FORMATS)
+
 class SFXManager:
     RENDER_DONE = "RENDER_DONE"
     BAKE_DONE = "BAKE_DONE"
@@ -54,7 +59,7 @@ class SFXManager:
     @classmethod
     def _get_effective_path(cls, prefs_instance, event_type):
         user_path = cls._get_user_path(prefs_instance, event_type)
-        if user_path and os.path.exists(user_path) and user_path.lower().endswith('.wav'):
+        if user_path and os.path.exists(user_path) and _is_supported_format(user_path):
             return user_path
         default_path = cls._get_default_path(event_type)
         if default_path and os.path.exists(default_path):
