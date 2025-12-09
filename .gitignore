@@ -52,6 +52,7 @@ README*
 *.tmp
 *.bak
 *.log
+*.ogg
 
 # 其他二进制文件
 *.dll

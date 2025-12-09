@@ -28,6 +28,8 @@ class SFXManager:
     @classmethod
     def register(cls):
         cls._device = aud.Device()
+        user_sfx_path = cls._get_user_sfx_path()
+        os.makedirs(user_sfx_path, exist_ok=True)
     
     @classmethod
     def unregister(cls):
@@ -47,7 +49,7 @@ class SFXManager:
         return defaults.get(event_type, "")
     
     @classmethod
-    def _get_user_path(cls, prefs_instance, event_type):
+    def _get_user_filename(cls, prefs_instance, event_type):
         path_map = {
             cls.RENDER_DONE: prefs_instance.sfx_render_path,
             cls.BAKE_DONE: prefs_instance.sfx_bake_path,
@@ -57,10 +59,19 @@ class SFXManager:
         return path_map.get(event_type, "")
     
     @classmethod
+    def _get_user_sfx_path(cls):
+        addon_path = os.path.dirname(__file__)
+        return os.path.join(addon_path, "assets", "user_sfx")
+    
+    @classmethod
     def _get_effective_path(cls, prefs_instance, event_type):
-        user_path = cls._get_user_path(prefs_instance, event_type)
-        if user_path and os.path.exists(user_path) and _is_supported_format(user_path):
-            return user_path
+        user_filename = cls._get_user_filename(prefs_instance, event_type)
+        if user_filename:
+            user_sfx_path = cls._get_user_sfx_path()
+            user_file_path = os.path.join(user_sfx_path, user_filename)
+            if os.path.exists(user_file_path) and _is_supported_format(user_file_path):
+                return user_file_path
+        
         default_path = cls._get_default_path(event_type)
         if default_path and os.path.exists(default_path):
             return default_path
